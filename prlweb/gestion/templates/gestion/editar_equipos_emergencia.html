@@ -1,0 +1,18 @@
+{% extends "gestion/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Añadir Equipo de Emergencia</h2>
+  
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" class="btn btn-success">Guardar</button>
+  </form>
+  
+  <div class="mt-4">
+    <a href="{% url 'emergencias_dashboard' %}" class="btn btn-secondary">Volver al Panel de Emergencias</a>
+  </div>
+</div>
+{% endblock %}

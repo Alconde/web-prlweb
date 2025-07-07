@@ -1,0 +1,27 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Seleccionar Medios de Protección contra Incendios</h2>
+  <p class="text-center text-muted mb-4">Marca los medios disponibles en la empresa.</p>
+
+  <form method="post" class="card p-4 shadow-sm border-0">
+    {% csrf_token %}
+    {% for medio in medios %}
+      <div class="form-check mb-2">
+        <input type="checkbox" name="medio_{{ medio.id }}" id="medio_{{ medio.id }}" class="form-check-input" {% if medio.seleccionado %}checked{% endif %}>
+        <label class="form-check-label" for="medio_{{ medio.id }}">
+          {{ medio.nombre }}
+        </label>
+      </div>
+    {% empty %}
+      <p class="text-muted">No hay medios disponibles.</p>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary mt-3 w-100">
+      <i class="bi bi-save"></i> Guardar Selección
+    </button>
+    <a href="{% url 'dashboard_emergencia' %}" class="btn btn-outline-secondary w-100 mt-2">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

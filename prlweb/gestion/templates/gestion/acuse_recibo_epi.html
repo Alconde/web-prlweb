@@ -1,0 +1,53 @@
+{% extends "gestion/base.html" %}
+{% block content %}
+<div class="container my-5 p-5 border rounded bg-white" style="max-width:700px;">
+  <h2 class="text-center mb-4">Acuse de Recibo de Entrega de EPIs</h2>
+
+  <p>
+    En <strong>{{ empresa.nombre }}</strong>, a <strong>{{ fecha|date:"d/m/Y" }}</strong>,
+    el/la trabajador/a <strong>{{ trabajador.nombre }} {{ trabajador.apellidos }}</strong>,
+    con DNI <strong>{{ trabajador.dni }}</strong>, manifiesta haber recibido de la empresa los siguientes Equipos de Protección Individual (EPIs) asignados a su puesto de trabajo <strong>{{ puesto.nombre }}</strong>.
+  </p>
+
+  <table class="table table-bordered my-4">
+    <thead class="table-secondary">
+      <tr>
+        <th>EPI</th>
+        <th>Riesgo/s que protege</th>
+        <th>Norma UNE</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for epi in epis %}
+      <tr>
+        <td>{{ epi.nombre }}</td>
+        <td>{{ epi.riesgos }}</td>
+        <td>{{ epi.norma }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3" class="text-center">No hay EPIs asignados.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p>
+    El/la trabajador/a declara que ha recibido la información y formación necesaria para el correcto uso y mantenimiento de los equipos entregados.
+  </p>
+
+  <div class="row mt-5">
+    <div class="col-6 text-center">
+      <p><strong>Firma Empresa</strong></p>
+      <br><br>
+      <p>________________________</p>
+    </div>
+    <div class="col-6 text-center">
+      <p><strong>Firma Trabajador/a</strong></p>
+      <br><br>
+      <p>________________________</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,38 @@
+{% extends "gestion/base.html" %}
+
+{% block title %}Inicio | Gestión PRL{% endblock %}
+
+{% block content %}
+  <hgroup>
+    <h2>Documentación PRL</h2>
+    <h3>Gestione toda la prevención de su empresa en un solo lugar</h3>
+  </hgroup>
+  <p>Acceda a los módulos de prevención de riesgos laborales, conforme a la normativa vigente. Cada empresa dispondrá de acceso individualizado a su documentación.</p>
+
+  <figure class="text-center my-4">
+  <img src="https://images.unsplash.com/photo-1581091870622-df6a6d54fcb2" class="img-fluid rounded" alt="Seguridad laboral">
+  <figcaption class="mt-2 text-muted small">
+    <a href="https://unsplash.com/photos/man-in-orange-safety-vest-standing-in-construction-site-9e9PD9blAto" target="_blank">
+      Imagen: Unsplash
+    </a>
+  </figcaption>
+</figure>
+
+  <h3>Módulos disponibles:</h3>
+  <ul>
+    <a href="{% url 'informacion_empresa' %}"><div class="module-button">🏢 Información de la empresa</div></a>
+    <a href="{% url 'listar_plan_prevencion' %}"><div class="module-button">🛡️ Plan de prevención</div></a>
+    <a href="{% url 'listar_medidas' %}"><div class="module-button">⚠️📆Evaluación de riesgos/Planificación de la Actividad Preventiva</div></a>
+    <a href="{% url 'emergencias_dashboard' %}"><div class="module-button">🚨 Medidas de emergencia</div></a>
+    <a href="{% url 'dashboard_investigaciones' %}"><div class="module-button">🕵️ Investigación de accidentes</div></a>
+    <a href="{% url 'listado_epis' %}"><div class="module-button">👷 Equipos de Protección Individual (EPI's)</div></a>
+    <a href="{% url 'dashboard_cae' %}"><div class="module-button">🤝 Coordinación de Actividades Empresariales (CAE)</div></a>
+    <li>❤️ Vigilancia de la salud (VS)</li>    
+  </ul>
+
+  <h3>Acceso seguro</h3>
+  <p>Cada empresa accede a su entorno privado mediante usuario y contraseña. (Funcionalidad en desarrollo)</p>
+
+  <h3>Cumple con la normativa</h3>
+  <p>Sistema alineado con la Ley 31/1995, RD 39/1997 y normativa vigente en prevención.</p>
+{% endblock %}

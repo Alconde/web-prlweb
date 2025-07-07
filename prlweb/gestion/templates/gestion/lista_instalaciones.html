@@ -1,0 +1,57 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Instalaciones de la empresa{% endblock %}
+
+{% block content %}
+<p>
+  <a href="{% url 'nueva_instalacion' %}">➕ Crear nueva instalación</a>
+</p>
+
+<h2>🏗️ Instalaciones de la empresa</h2>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <tr>
+    <th>Nombre</th>
+    <th>Mto</th>
+    <th>Fecha mto</th>
+    <th>Próxima fecha</th>
+    <th>Documentación</th>
+    <th>Acciones</th>
+  </tr>
+
+  {% for i in instalaciones %}
+  <tr>
+    <td>{{ i.nombre }}</td>
+    <td>{% if i.mantenimiento_realizado %}✔{% else %}✖{% endif %}</td>
+    <td>{{ i.fecha_mantenimiento|date:"d/m/Y" }}</td>
+    <td>
+      {% if i.proxima_fecha_mantenimiento %}
+        {{ i.proxima_fecha_mantenimiento|date:"d/m/Y" }}
+      {% else %}
+        -
+      {% endif %}
+    </td>
+    <td>
+      <ul>
+        {% for doc in i.documentos.all %}
+          <li>
+            {{ doc.get_tipo_documento_display }}:
+            <a href="{{ doc.archivo.url }}" target="_blank">📄 Ver</a>
+          </li>
+        {% empty %}
+          <li>Sin documentos</li>
+        {% endfor %}
+      </ul>
+      <a href="{% url 'detalle_instalacion' i.pk %}">Ver documentación</a>
+    </td>
+    <td>
+      <a href="{% url 'editar_instalacion' i.pk %}">✏️ Editar</a>
+      &nbsp;
+      <a href="{% url 'eliminar_instalacion' i.pk %}">🗑️ Eliminar</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{% url 'informacion_empresa' %}" class="btn btn-secondary">← Volver a información empresa</a>
+{% endblock %}
+

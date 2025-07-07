@@ -1,0 +1,12 @@
+{% extends "gestion/base.html" %}
+{% block content %}
+  <h2>📄 Autorización de uso de equipos</h2>
+  <p>El trabajador ha sido autorizado y formado para el uso de los siguientes equipos:</p>
+  <ul>
+    {% for e in equipos %}
+      <li>{{ e.nombre }} - {{ e.marca }} {{ e.modelo }}</li>
+    {% endfor %}
+  </ul>
+  <p>Fecha: {{ hoy }}</p>
+{% endblock %}
+

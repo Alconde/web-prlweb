@@ -1,0 +1,42 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Plan de Prevención</h2>
+
+  {# Bloque de errores generales del formulario #}
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      <strong>Por favor corrige los errores a continuación:</strong>
+      <ul class="mb-0">
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm bg-light border-0">
+    {% csrf_token %}
+    
+    {% for field in form %}
+      <div class="mb-3">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.help_text %}
+          <div class="form-text">{{ field.help_text }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'listar_plan_prevencion' %}" class="btn btn-secondary ms-2">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
+

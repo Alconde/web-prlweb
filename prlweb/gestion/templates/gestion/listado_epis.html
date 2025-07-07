@@ -1,0 +1,86 @@
+{% extends "gestion/base.html" %}
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">Listado de EPIs y trabajadores</h2>
+  <form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+      <label>Puesto de trabajo:</label>
+      <select name="puesto" class="form-select" onchange="this.form.submit()">
+        <option value="">Todos</option>
+        {% for p in puestos %}
+          <option value="{{ p.id }}" {% if p.id|stringformat:"s" == puesto_filtro %}selected{% endif %}>{{ p.nombre }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Buscar EPI:</label>
+      <input type="text" class="form-control" name="q" value="{{ q }}" placeholder="Buscar EPI por nombre, riesgo o norma">
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <button class="btn btn-primary w-100" type="submit">Filtrar</button>
+    </div>
+  </form>
+  <table class="table table-bordered align-middle">
+    <thead>
+      <tr>
+        <th>Trabajador</th>
+        <th>Puesto</th>
+        <th>EPIs Asignados</th>
+        <th>Editar EPIs del Puesto</th>
+        <th>Acuse de recibo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trabajador in trabajadores %}
+      <tr>
+        <td>{{ trabajador.nombre }} {{ trabajador.apellidos }}</td>
+        <td>{{ trabajador.puesto }}</td>
+        <td>
+          {% if trabajador.puesto.epis.all %}
+            <ul class="list-unstyled mb-0">
+            {% for epi in trabajador.puesto.epis.all %}
+              <li>
+                <span class="badge bg-info text-dark mb-1">{{ epi.nombre }}</span>
+                <small><strong>Riesgo:</strong> {{ epi.riesgos }} | <strong>Norma:</strong> {{ epi.norma }}</small>
+              </li>
+            {% endfor %}
+            </ul>
+          {% else %}
+            <span class="text-muted">No aplica</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if trabajador.puesto %}
+            <a href="{% url 'editar_epis_puesto' trabajador.puesto.id %}" class="btn btn-warning btn-sm">Editar</a>
+          {% else %}
+            <span class="text-muted">No disponible</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if trabajador.id %}
+            <a href="{% url 'acuse_recibo_epi_pdf' trabajador.id %}" class="btn btn-success btn-sm">Acuse de recibo</a>
+          {% else %}
+            <span class="text-muted">No disponible</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h4 class="mt-4">Listado completo de EPIs (según búsqueda):</h4>
+  <ul class="list-group">
+    {% for epi in epis %}
+      <li class="list-group-item">
+        <strong>{{ epi.nombre }}</strong> — {{ epi.riesgos }} — <em>{{ epi.norma }}</em>
+      </li>
+    {% empty %}
+      <li class="list-group-item">No se encontraron EPIs.</li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="text-center mt-4">
+  <a href="{% url 'home' %}" class="btn btn-secondary">
+    ← Volver a página principal
+  </a>
+</div>
+{% endblock %}

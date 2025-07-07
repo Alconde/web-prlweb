@@ -1,0 +1,42 @@
+{% extends "gestion/base.html" %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">Editar EPIs para el puesto: {{ puesto.nombre }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <table class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th style="width: 40px;"></th>
+          <th>EPI</th>
+          <th>Riesgos que protege</th>
+          <th>Norma UNE</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for epi in epis %}
+        <tr>
+          <td>
+            <input
+              type="checkbox"
+              name="epis"
+              value="{{ epi.id }}"
+              {% if epi in puesto.epis.all %}checked{% endif %}
+            >
+          </td>
+          <td><strong>{{ epi.nombre }}</strong></td>
+          <td>{{ epi.riesgos }}</td>
+          <td>{{ epi.norma }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <button class="btn btn-success" type="submit">Guardar selección</button>
+    <a href="{% url 'listado_epis' %}" class="btn btn-secondary ms-2">Volver</a>
+  </form>
+</div>
+{% endblock %}

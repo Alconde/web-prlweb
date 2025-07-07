@@ -1,0 +1,15 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Eliminar equipo{% endblock %}
+
+{% block content %}
+  <h2>🗑️ Eliminar equipo</h2>
+
+  <p>¿Estás seguro de que deseas eliminar el equipo <strong>{{ equipo.nombre }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'listar_equipos' %}">Cancelar</a>
+  </form>
+{% endblock %}

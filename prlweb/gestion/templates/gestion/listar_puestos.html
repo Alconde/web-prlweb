@@ -1,0 +1,17 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+  <h2>Puestos de trabajo</h2>
+  <a href="{% url 'crear_puesto' %}">Nuevo puesto</a>
+  <ul>
+  {% for puesto in puestos %}
+    <li>
+      {{ puesto.nombre }} |
+      <a href="{% url 'detalle_puesto' puesto.pk %}">Ver</a> |
+      <a href="{% url 'editar_puesto' puesto.pk %}">Editar</a> |
+      <a href="{% url 'eliminar_puesto' puesto.pk %}">Eliminar</a>      
+
+    </li>
+  {% endfor %}
+</ul>
+<a href="{% url 'informacion_empresa' %}" class="btn btn-secondary">← Volver a información empresa</a>
+{% endblock %}

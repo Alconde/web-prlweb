@@ -1,0 +1,10 @@
+<!-- templates/gestion/asignar_epis_puesto.html -->
+{% extends "gestion/base.html" %}
+{% block content %}
+<h2>Asignar EPIs a {{ puesto.nombre }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}

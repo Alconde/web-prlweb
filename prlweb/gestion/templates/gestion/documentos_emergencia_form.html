@@ -1,0 +1,22 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Gestión de Documentos de Emergencia</h2>
+  <p class="text-center text-muted mb-4">Sube o actualiza los documentos relacionados con las medidas de emergencia.</p>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm border-0">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success w-100 mt-3">
+          <i class="bi bi-upload"></i> Guardar Documentos
+        </button>
+        <a href="{% url 'dashboard_emergencia' %}" class="btn btn-outline-secondary w-100 mt-2">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

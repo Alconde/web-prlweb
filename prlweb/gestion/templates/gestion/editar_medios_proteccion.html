@@ -1,0 +1,17 @@
+{% extends "gestion/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Seleccionar Medios de Protección contra Incendios</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Guardar Selección</button>
+  </form>
+</div>
+{% endblock %}
+
+
+
+
+

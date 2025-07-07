@@ -1,0 +1,30 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Nueva Instalación{% endblock %}
+
+{% block content %}
+  <h2>➕ Añadir nueva instalación</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+
+  <script>
+    // Mostrar el campo "tipo_combustible" solo si es caldera
+    const tipoSelect = document.querySelector('#id_tipo');
+    const combustibleField = document.querySelector('#id_tipo_combustible').parentElement;
+
+    function toggleCombustible() {
+      if (tipoSelect.value === 'caldera') {
+        combustibleField.style.display = 'block';
+      } else {
+        combustibleField.style.display = 'none';
+      }
+    }
+
+    toggleCombustible();
+    tipoSelect.addEventListener('change', toggleCombustible);
+  </script>
+{% endblock %}
+

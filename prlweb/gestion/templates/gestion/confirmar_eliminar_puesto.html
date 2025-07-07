@@ -1,0 +1,14 @@
+{% extends "gestion/base.html" %}
+
+{% block content %}
+  <h2>Confirmar eliminación</h2>
+
+  <p>¿Estás seguro de que deseas eliminar el puesto de trabajo: <strong>{{ puesto.nombre }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'lista_puestos' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}
+

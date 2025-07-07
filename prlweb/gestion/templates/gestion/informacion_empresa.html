@@ -1,0 +1,17 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Información de la Empresa{% endblock %}
+
+{% block content %}
+  <h2>🏢 Información de la empresa</h2>
+  <p>Información relevante para la prevención de riesgos laborales:</p>
+
+  <ul>
+    <li><a href="{% url 'lista_instalaciones' %}">🏗️ Instalaciones</a></li>
+    <li><a href="{% url 'lista_equipos' %}">🛠️ Equipos de trabajo</a></li>
+    <li><a href="{% url 'lista_productos' %}">🧪 Productos químicos</a></li>
+    <li><a href="{% url 'lista_trabajadores' %}">👷 Trabajadores</a></li>
+    <li><a href="{% url 'lista_puestos' %}">📋 Puestos de trabajo</a></li>
+  </ul>
+  <a href="{% url 'home' %}" class="btn btn-secondary">← Volver a página principal</a>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Dashboard Investigaciones de Accidentes</h2>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <h5>Procedimiento de Investigación</h5>
+      {% if procedimiento.archivo %}
+        <a href="{{ procedimiento.archivo.url }}" class="btn btn-outline-primary" target="_blank">
+          <i class="bi bi-file-earmark-pdf"></i> Ver Procedimiento
+        </a>
+      {% else %}
+        <form method="post" enctype="multipart/form-data" class="d-inline">
+          {% csrf_token %}
+          {{ form.archivo }}
+          <button type="submit" class="btn btn-secondary">
+            <i class="bi bi-upload"></i> Subir Procedimiento
+          </button>
+        </form>
+      {% endif %}
+    </div>
+    <div class="col-md-6">
+      <h5>Documento Tipo de Investigación</h5>
+      <a href="{% static '' %}{{ plantilla_path }}" class="btn btn-outline-secondary" target="_blank">
+        <i class="bi bi-file-earmark-text"></i> Descargar Plantilla
+      </a>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <h4>Investigaciones Realizadas (Total: {{ total_accidentes }})</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Tipo de Accidente</th>
+          <th>Descripción</th>
+          <th>Investigador</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inv in investigaciones %}
+        <tr>
+          <td>{{ inv.accidente.fecha_accidente }}</td>
+          <td>{{ inv.fecha_investigacion }}</td>
+          <td>{{ inv.get_tipo_accidente_display }}</td>
+          <td>{{ inv.resumen }}</td>
+          <td>{{ inv.investigador }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="text-center">No hay investigaciones registradas.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-5">
+    <h4>Estadísticas por Tipo de Accidente</h4>
+    <ul class="list-group">
+      {% for stat in stats_tipo %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ stat.tipo_accidente }}
+        <span class="badge bg-primary rounded-pill">{{ stat.total }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="text-center mt-4">
+  <a href="{% url 'home' %}" class="btn btn-secondary">
+    ← Volver a página principal
+  </a>
+</div>
+{% endblock %}

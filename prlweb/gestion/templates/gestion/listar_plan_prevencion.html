@@ -1,0 +1,46 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<h2>Plan de Prevención</h2>
+
+{% if plan %}
+  <p><strong>Documento del plan:</strong>
+    {% if plan.documento %}
+      <a href="{{ plan.documento.url }}" target="_blank">Ver PDF</a>
+    {% else %}
+      No hay documento subido.
+    {% endif %}
+  </p>
+
+  <p><strong>Delegado de Prevención:</strong>
+    {% if plan.tiene_delegado %}
+      ✅ Dispone de Delegado
+      <br><strong>Acta:</strong> <a href="{{ plan.acta_delegado.url }}" target="_blank">Ver PDF</a>
+      <br><strong>Formación:</strong> <a href="{{ plan.formacion_delegado.url }}" target="_blank">Ver PDF</a>
+    {% else %}
+      ❌ No dispone de Delegado de Prevención
+    {% endif %}
+  </p>
+
+  <p><strong>Recurso Preventivo:</strong>
+    {% if plan.tiene_recurso_preventivo %}
+      ✅ Sí requiere Recurso Preventivo
+      <br><strong>Nombramiento:</strong> <a href="{{ plan.nombramiento_recurso.url }}" target="_blank">Ver PDF</a>
+      <br><strong>Formación:</strong> <a href="{{ plan.formacion_recurso.url }}" target="_blank">Ver PDF</a>
+    {% else %}
+      ❌ No requiere Recurso Preventivo
+    {% endif %}
+  </p>
+
+  <a href="{% url 'editar_plan_prevencion' plan.id %}" class="btn btn-warning">Editar</a>
+
+{% else %}
+  <p>No hay Plan de Prevención registrado.</p>
+  <a href="{% url 'crear_plan_prevencion' %}" class="btn btn-primary">Crear Plan</a>
+{% endif %}
+<div>
+  <a href="{% url 'home' %}" class="btn btn-secondary">← Volver a página principal</a>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,28 @@
+{% extends "gestion/base.html" %}
+{% block content %}
+<div class="container py-4">
+  <h2>Gestión CAE</h2>
+  <h4>Empresas y Subcontratas</h4>
+  <ul>
+    {% for empresa in empresas %}
+      <li>{{ empresa.get_tipo_display }}: {{ empresa.nombre }}</li>
+    {% endfor %}
+  </ul>
+
+  <h4>Documentación CAE</h4>
+  <table class="table">
+    <thead><tr><th>Empresa</th><th>Documento</th><th>Archivo</th><th>Caducidad</th></tr></thead>
+    <tbody>
+      {% for doc in documentos %}
+      <tr>
+        <td>{{ doc.empresa }}</td>
+        <td>{{ doc.nombre }}</td>
+        <td><a href="{{ doc.archivo.url }}">Descargar</a></td>
+        <td>{{ doc.fecha_caducidad }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- Añade más secciones para accesos, reuniones, incidencias, recursos y planes -->
+</div>
+{% endblock %}

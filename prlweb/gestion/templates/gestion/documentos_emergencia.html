@@ -1,0 +1,134 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+
+  <h2 class="text-center mb-4">Medidas de Emergencia</h2>
+  <p class="text-center text-muted mb-4">
+    Gestión de los documentos y equipos relacionados con la emergencia y autoprotección de la empresa.
+  </p>
+
+  <div class="row g-4">
+    <!-- Plan de Emergencia -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">Plan de Emergencia / Autoprotección</h5>
+          {% if documentos.plan_emergencia %}
+            <a href="{{ documentos.plan_emergencia.url }}" target="_blank" class="btn btn-outline-primary mb-2">
+              Ver Documento
+            </a>
+          {% else %}
+            <div class="text-muted mb-2">No hay documento subido.</div>
+          {% endif %}
+          <a href="{% url 'editar_documentos_emergencia' %}" class="btn btn-secondary">Subir / Editar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simulacros -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">Registros de Simulacros</h5>
+          {% if documentos.simulacros %}
+            <a href="{{ documentos.simulacros.url }}" target="_blank" class="btn btn-outline-primary mb-2">
+              Ver Documento
+            </a>
+          {% else %}
+            <div class="text-muted mb-2">No hay documento subido.</div>
+          {% endif %}
+          <a href="{% url 'editar_documentos_emergencia' %}" class="btn btn-secondary">Subir / Editar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consignas -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">Consignas de Información de Emergencia</h5>
+          {% if documentos.consignas %}
+            <a href="{{ documentos.consignas.url }}" target="_blank" class="btn btn-outline-primary mb-2">
+              Ver Documento
+            </a>
+          {% else %}
+            <div class="text-muted mb-2">No hay documento subido.</div>
+          {% endif %}
+          <a href="{% url 'editar_documentos_emergencia' %}" class="btn btn-secondary">Subir / Editar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documento Modelo Designación -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">Modelo de Designación de Equipos</h5>
+          {% if documentos.documento_designacion %}
+            <a href="{{ documentos.documento_designacion.url }}" target="_blank" class="btn btn-outline-primary mb-2">
+              Descargar Modelo
+            </a>
+          {% else %}
+            <div class="text-muted mb-2">No hay documento subido.</div>
+          {% endif %}
+          <a href="{% url 'editar_documentos_emergencia' %}" class="btn btn-secondary">Subir / Editar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- Listado de Equipos de Emergencia -->
+  <h4 class="mb-3">Equipos de Emergencia Designados</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Tipo de Equipo</th>
+          <th>Responsable</th>
+          <th>Sustituto</th>
+          <th>Designación Firmada</th>
+          <th>Certificado de Formación</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for equipo in equipos %}
+        <tr>
+          <td>{{ equipo.get_tipo_display }}</td>
+          <td>{{ equipo.responsable }}</td>
+          <td>{{ equipo.sustituto|default:"-" }}</td>
+          <td>
+            {% if equipo.registro_designacion %}
+              <a href="{{ equipo.registro_designacion.url }}" target="_blank" class="btn btn-outline-primary btn-sm">Ver</a>
+            {% else %}
+              <span class="text-muted">No subido</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if equipo.certificado_formacion %}
+              <a href="{{ equipo.certificado_formacion.url }}" target="_blank" class="btn btn-outline-primary btn-sm">Ver</a>
+            {% else %}
+              <span class="text-muted">No subido</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-muted">No hay equipos registrados.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{% url 'crear_equipo_emergencia' %}" class="btn btn-success">
+      <i class="bi bi-plus-circle"></i> Añadir Equipo de Emergencia
+    </a>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+<h2>Productos Químicos</h2>
+<a class="btn btn-primary" href="{% url 'crear_producto' %}">Añadir nuevo producto</a>
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Uso</th>
+            <th>Almacenamiento</th>
+            <th>Cantidad</th>
+            <th>FDS</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for producto in productos %}
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.lugar_uso }}</td>
+            <td>{{ producto.lugar_almacenamiento }}</td>
+            <td>{{ producto.cantidad }} {{ producto.unidad }}</td>
+            <td>
+                {% if producto.fds %}
+                    <a href="{{ producto.fds.url }}" target="_blank">Ver</a>
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'editar_producto' producto.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{% url 'eliminar_producto' producto.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'informacion_empresa' %}" class="btn btn-secondary">← Volver a información empresa</a>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'gestion/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<h2>Nuevo Puesto de Trabajo</h2>
+
+<form method="post" class="card p-4 shadow-sm bg-light">
+  {% csrf_token %}
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      <strong>Por favor corrige los errores:</strong>
+    </div>
+  {% endif %}
+
+  {% for field in form %}
+    <div class="mb-3">
+      <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {% render_field field class="form-control" %}
+      {% if field.help_text %}
+        <div class="form-text">{{ field.help_text }}</div>
+      {% endif %}
+      {% if field.errors %}
+        <div class="text-danger">{{ field.errors }}</div>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Guardar</button>
+  <a href="{% url 'lista_puestos' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
+

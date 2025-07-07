@@ -1,0 +1,22 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Equipo de Emergencia</h2>
+  <p class="text-center text-muted mb-4">Completa los datos del miembro del equipo de emergencia.</p>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm border-0">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success w-100 mt-3">
+          <i class="bi bi-save"></i> Guardar Equipo
+        </button>
+        <a href="{% url 'dashboard_emergencia' %}" class="btn btn-outline-secondary w-100 mt-2">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

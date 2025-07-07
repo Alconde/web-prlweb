@@ -1,0 +1,13 @@
+{% extends 'gestion/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container py-4">
+  <h3>Subir documento CAE</h3>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Subir</button>
+    <a href="{% url 'dashboard_cae' %}" class="btn btn-link">Volver</a>
+  </form>
+</div>
+{% endblock %}

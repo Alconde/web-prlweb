@@ -1,0 +1,43 @@
+{% extends "gestion/base.html" %}
+{% block content %}
+  <h2>🛠️ Equipos de trabajo</h2>
+  <a href="{% url 'nuevo_equipo' %}">➕ Añadir equipo</a>
+  <table border="1" cellpadding="8">
+    <tr>
+      <th>Nombre</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Nº Serie</th>
+      <th>Marcado CE</th>
+      <th>Manual</th>
+      <th>Mto</th>
+      <th>Próxima revisión</th>
+    </tr>
+    {% for e in equipos %}
+    <tr>
+      <td>{{ e.nombre }}</td>
+      <td>{{ e.marca }}</td>
+      <td>{{ e.modelo }}</td>
+      <td>{{ e.numero_serie }}</td>
+      <td>{% if e.marcado_ce %}✔{% else %}✖{% endif %}</td>
+      <td>
+        {% if e.manual_instrucciones %}
+          <a href="{{ e.manual_instrucciones.url }}" target="_blank">📄 Ver</a>
+        {% else %}
+          -
+        {% endif %}
+      </td>
+      <td>{% if e.requiere_mantenimiento %}✔{% else %}✖{% endif %}</td>
+      <td>
+        {% if e.proxima_revision %}
+          {{ e.proxima_revision|date:"d/m/Y" }}
+        {% else %}
+          -
+        {% endif %}
+      </td>      
+    </tr>
+    {% endfor %}
+    <a href="{% url 'autorizacion_general' %}" class="btn btn-primary" target="_blank">📄 Ver autorización general</a>
+  </table>
+  <a href="{% url 'informacion_empresa' %}" class="btn btn-secondary">← Volver a información empresa</a>
+{% endblock %}

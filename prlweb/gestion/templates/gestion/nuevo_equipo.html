@@ -1,0 +1,10 @@
+{% extends "gestion/base.html" %}
+{% block content %}
+  <h2>➕ Nuevo equipo de trabajo</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+  <a href="{% url 'lista_equipos' %}">← Volver al listado</a>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "gestion/base.html" %}
+
+{% block content %}
+  <h2>Detalles del Puesto de Trabajo</h2>
+
+  <p><strong>Nombre del puesto:</strong> {{ puesto.nombre }}</p>
+  <p><strong>Tareas:</strong> {{ puesto.tareas }}</p>
+  <p><strong>Equipos de trabajo utilizados:</strong> {{ puesto.equipos_trabajo }}</p>
+  <p><strong>Productos químicos:</strong> {{ puesto.productos_quimicos }}</p>
+  <p><strong>Manipulación de cargas:</strong> {{ puesto.manipulacion_cargas|yesno:"Sí,No" }}</p>
+  <p><strong>Trabajo en altura:</strong> {{ puesto.trabajo_altura|yesno:"Sí,No" }}</p>
+  <p><strong>Acceso a recintos confinados:</strong> {{ puesto.recinto_confinado|yesno:"Sí,No" }}</p>
+  <p><strong>Horario:</strong> {{ puesto.horario }}</p>
+
+  <hr>
+
+  <a href="{% url 'editar_puesto' puesto.pk %}" class="btn btn-primary">Editar</a>
+  <a href="{% url 'eliminar_puesto' puesto.pk %}" class="btn btn-danger">Eliminar</a>
+  <a href="{% url 'lista_puestos' %}" class="btn btn-secondary">← Volver al listado</a>
+{% endblock %}

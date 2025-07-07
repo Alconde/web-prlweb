@@ -1,0 +1,46 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Subir / Editar Documentos de Emergencia</h2>
+  <p class="text-center text-muted mb-5">
+    Puedes actualizar los documentos de tu plan de emergencia.
+  </p>
+  <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm mx-auto" style="max-width:700px;">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Plan de Emergencia / Autoprotección</label>
+      {{ form.plan_emergencia }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Plano</label>
+      {{ form.plano }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Registros de Simulacros</label>
+      {{ form.registro_simulacros }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Consignas de Información</label>
+      {{ form.consignas_emergencia }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Nombramientos de los Equipos de Emergencia</label>
+      {{ form.nombramientos_equipos }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Certificados de Formación en Emergencias</label>
+      {{ form.certificados_formacion }}
+    </div>
+    <div class="d-flex justify-content-between">
+      <a href="{% url 'emergencias_dashboard' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Cancelar
+      </a>
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-save"></i> Guardar Cambios
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
